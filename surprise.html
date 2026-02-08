@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Surprise ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family:sans-serif;
+    text-align:center;
+    color:white;
+    overflow:hidden;
+
+    /* animated gradient background */
+    background: linear-gradient(45deg, #ff4b7d, #6a11cb, #ff758c, #2575fc);
+    background-size: 400% 400%;
+    animation: bgMove 10s infinite alternate;
+}
+
+@keyframes bgMove {
+    0% {background-position: left;}
+    100% {background-position: right;}
+}
+
+/* glowing title */
+h1{
+    font-size:45px;
+    margin-top:60px;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px white; }
+    to { text-shadow: 0 0 25px #ff4b7d, 0 0 40px pink; }
+}
+
+p{
+    font-size:22px;
+    max-width:700px;
+    margin:auto;
+    padding:20px;
+}
+
+/* GIF */
+img{
+    width:250px;
+    border-radius:12px;
+}
+
+/* proposal buttons */
+button{
+    padding:15px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin:10px;
+}
+
+#yesBtn{
+    background:white;
+    color:#ff4b7d;
+}
+
+#noBtn{
+    background:#333;
+    color:white;
+    position:relative;
+}
+
+/* floating hearts */
+.heart {
+    position:absolute;
+    bottom:-20px;
+    font-size:20px;
+    animation: float 7s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity:1; }
+    100% { transform: translateY(-100vh); opacity:0; }
+}
+
+/* sparkles */
+.sparkle{
+    position:absolute;
+    color:white;
+    animation: sparkleMove 5s linear infinite;
+}
+
+@keyframes sparkleMove{
+    from{ transform:translateY(0); opacity:1;}
+    to{ transform:translateY(-100vh); opacity:0;}
+}
+
+/* petals */
+.petal{
+    position:absolute;
+    font-size:20px;
+    animation: fall 8s linear infinite;
+}
+
+@keyframes fall{
+    0%{ transform:translateY(-10vh);}
+    100%{ transform:translateY(100vh);}
+}
+
+#message{
+    font-size:24px;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>I Love You ❤️</h1>
+
+<!-- typing message -->
+<p id="typingText"></p>
+
+<!-- romantic gif before proposal -->
+<img src="https://sms.latestsms.in/wp-content/uploads/moving-i-love-you-gif-1.gif" alt="love gif">
+
+<h2>Will you stay with me forever? 💍</h2>
+
+<div>
+    <button id="yesBtn" onclick="yesClicked()">Yes 💖</button>
+    <button id="noBtn" onclick="moveNo()">No 😢</button>
+</div>
+
+<p id="message"></p>
+
+<!-- GIF that appears AFTER clicking YES -->
+<img id="yesGif" src="https://media.tenor.com/JF6wQnZWb7QAAAAm/peach-goma-love-happy-lie-wiggle.webp" style="display:none; margin-top:20px; width:260px; border-radius:12px; margin-left:auto; margin-right:auto;" alt="happy gif">
+
+<script>
+
+/* typing animation */
+const text = "You are my happiness, my peace, my forever.";
+let i=0;
+function typing(){
+    if(i<text.length){
+        document.getElementById("typingText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing,40);
+    }
+}
+typing();
+
+/* floating hearts */
+setInterval(()=>{
+    let heart=document.createElement("div");
+    heart.innerHTML="❤️";
+    heart.className="heart";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(20+Math.random()*20)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),7000);
+},500);
+
+/* sparkles */
+setInterval(()=>{
+    let spark=document.createElement("div");
+    spark.innerHTML="✨";
+    spark.className="sparkle";
+    spark.style.left=Math.random()*100+"vw";
+    document.body.appendChild(spark);
+    setTimeout(()=>spark.remove(),5000);
+},700);
+
+/* petals */
+setInterval(()=>{
+    let petal=document.createElement("div");
+    petal.innerHTML="🌸";
+    petal.className="petal";
+    petal.style.left=Math.random()*100+"vw";
+    document.body.appendChild(petal);
+    setTimeout(()=>petal.remove(),8000);
+},900);
+
+/* NO button logic */
+let noClickCount = 0;
+
+const texts = [
+    "Hey! That’s not the right choice 😜",
+    "Think again… I know your answer 😌",
+    "You can't escape love ❤️",
+    "Still trying to press NO? 😏",
+    "Last chance… choose YES 💖"
+];
+
+function moveNo() {
+    if(noClickCount < 5){
+
+        document.getElementById("message").innerHTML = texts[noClickCount];
+
+        let btn = document.getElementById("noBtn");
+        btn.style.position = "absolute";
+        btn.style.top = Math.random()*80 + "%";
+        btn.style.left = Math.random()*80 + "%";
+
+        noClickCount++;
+    } else {
+        document.getElementById("noBtn").disabled = true;
+        document.getElementById("message").innerHTML = "You can’t press me anymore 😌";
+    }
+}
+
+/* YES response + show GIF */
+function yesClicked(){
+    document.getElementById("message").innerHTML = "Yay! I knew it 😍❤️ Forever starts now 💍";
+
+    document.getElementById("yesGif").style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
